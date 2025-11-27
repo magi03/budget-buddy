@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BudgetBuddy</title>
 
-    <!-- 👇 THIS IS THE FIX: Adds Tailwind CSS styling -->
+    <!-- Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
     <div id="root"></div>
 
-    <!-- Note: Ensure this filename matches your actual file (main.tsx or main.jsx) -->
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- 👇 THIS IS THE KEY FIX: Point to .jsx, not .tsx -->
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
