@@ -24,7 +24,9 @@ import {
   AlertTriangle,
   DownloadCloud,
   UploadCloud,
-  Copy
+  Copy,
+  Calendar,
+  RefreshCw
 } from 'lucide-react';
 
 // --- Default Data & Utilities ---
@@ -77,6 +79,8 @@ const TRANSLATIONS = {
     overBy: 'Over by',
     manageCategories: 'Manage Categories',
     createNewCategory: 'Create New Category',
+    editCategory: 'Edit Category',
+    update: 'Update',
     name: 'Name',
     type: 'Type',
     monthlyLimit: 'Monthly Limit',
@@ -118,12 +122,242 @@ const TRANSLATIONS = {
     invalidData: 'Invalid data format.',
     exportDesc: 'Copy this code to move your data to another device.',
     importDesc: 'Paste code from another device to overwrite data here.',
+    date: 'Date',
+    clearAllData: 'Clear All Data',
+    clearConfirm: 'Are you sure? This deletes EVERYTHING!',
   },
-  // ... (Other languages kept implicitly if needed, defaulted to EN for brevity in this fix)
+  bg: {
+    dashboard: 'Табло',
+    history: 'История',
+    analysis: 'Анализ',
+    categories: 'Категории',
+    addNew: 'Добави',
+    monthlyBalance: 'Месечен Баланс',
+    monthlyIncome: 'Месечен Приход',
+    monthlyExpenses: 'Месечен Разход',
+    budgetStatus: 'Бюджетен Статус',
+    recentActivity: 'Скорошна Дейност',
+    allHistory: 'Цялата История',
+    addTransaction: 'Добави Транзакция',
+    saveTransaction: 'Запази',
+    amount: 'Сума',
+    category: 'Категория',
+    description: 'Описание (Опция)',
+    expense: 'Разход',
+    income: 'Приход',
+    savings: 'Спестявания',
+    spent: 'Изхарчени',
+    saved: 'Спестени',
+    limit: 'Лимит',
+    goal: 'Цел',
+    left: 'Остават',
+    overBy: 'Над лимита с',
+    manageCategories: 'Управление на Категории',
+    createNewCategory: 'Създай Нова Категория',
+    editCategory: 'Редактиране на Категория',
+    update: 'Обнови',
+    name: 'Име',
+    type: 'Тип',
+    monthlyLimit: 'Месечен Лимит',
+    monthlyGoal: 'Месечна Цел',
+    add: 'Добави',
+    noRecords: 'Няма намерени записи.',
+    noCategories: 'Няма настроени категории.',
+    noTransactionsMonth: 'Няма транзакции за този месец.',
+    yearlyOverview: 'Годишен Преглед',
+    breakdown: 'Разбивка за',
+    unknown: 'Неизвестно',
+    settings: 'Настройки',
+    home: 'Начало',
+    totalSavings: 'Общи Спестявания',
+    lifetimeStats: 'Обща Статистика',
+    totalIncome: 'Общ Приход',
+    totalExpenses: 'Общ Разход',
+    initialSavings: 'Начални Спестявания',
+    setInitial: 'Задай Начален Баланс',
+    deposit: 'Внеси',
+    withdraw: 'Изтегли',
+    withdrewFrom: 'Изтеглено от',
+    depositedTo: 'Внесено в',
+    cannotDelete: 'Не може да се изтрие категория с налични транзакции.',
+    deleteConfirmTitle: 'Изтриване?',
+    deleteConfirmMsg: 'Сигурни ли сте, че искате да изтриете това? Това не може да бъде отменено.',
+    cancel: 'Отказ',
+    delete: 'Изтрий',
+    successTx: 'Транзакцията е запазена успешно',
+    successCat: 'Категорията е добавена успешно',
+    deletedItem: 'Елементът е изтрит успешно',
+    dataManagement: 'Архивиране и Синхронизация',
+    exportData: 'Експорт (Копирай)',
+    importData: 'Импорт (Възстанови)',
+    pasteData: 'Поставете кода тук...',
+    restore: 'Възстанови',
+    dataCopied: 'Данните са копирани! Изпратете ги на другото устройство.',
+    dataRestored: 'Данните са възстановени успешно!',
+    invalidData: 'Невалиден формат на данните.',
+    exportDesc: 'Копирайте този код, за да прехвърлите данните.',
+    importDesc: 'Поставете код от друго устройство, за да презапишете данните.',
+    date: 'Дата',
+    clearAllData: 'Изчисти Всички Данни',
+    clearConfirm: 'Сигурни ли сте? Това изтрива ВСИЧКО!',
+  },
+  de: {
+    dashboard: 'Dashboard',
+    history: 'Verlauf',
+    analysis: 'Analyse',
+    categories: 'Kategorien',
+    addNew: 'Neu',
+    monthlyBalance: 'Monatssaldo',
+    monthlyIncome: 'Monatseinkommen',
+    monthlyExpenses: 'Monatsausgaben',
+    budgetStatus: 'Budgetstatus',
+    recentActivity: 'Letzte Aktivitäten',
+    allHistory: 'Gesamter Verlauf',
+    addTransaction: 'Transaktion hinzufügen',
+    saveTransaction: 'Speichern',
+    amount: 'Betrag',
+    category: 'Kategorie',
+    description: 'Beschreibung (Optional)',
+    expense: 'Ausgabe',
+    income: 'Einkommen',
+    savings: 'Sparen',
+    spent: 'Ausgegeben',
+    saved: 'Gespart',
+    limit: 'Limit',
+    goal: 'Ziel',
+    left: 'Übrig',
+    overBy: 'Drüber um',
+    manageCategories: 'Kategorien verwalten',
+    createNewCategory: 'Neue Kategorie erstellen',
+    editCategory: 'Kategorie bearbeiten',
+    update: 'Aktualisieren',
+    name: 'Name',
+    type: 'Typ',
+    monthlyLimit: 'Monatslimit',
+    monthlyGoal: 'Monatsziel',
+    add: 'Hinzufügen',
+    noRecords: 'Keine Einträge gefunden.',
+    noCategories: 'Noch keine Kategorien eingerichtet.',
+    noTransactionsMonth: 'Keine Transaktionen für diesen Monat.',
+    yearlyOverview: 'Jahresübersicht',
+    breakdown: 'Aufschlüsselung für',
+    unknown: 'Unbekannt',
+    settings: 'Einstellungen',
+    home: 'Start',
+    totalSavings: 'Gesamtsparvermögen',
+    lifetimeStats: 'Gesamtstatistik',
+    totalIncome: 'Gesamteinkommen',
+    totalExpenses: 'Gesamtausgaben',
+    initialSavings: 'Anfangsbestand',
+    setInitial: 'Anfangsbestand setzen',
+    deposit: 'Einzahlen',
+    withdraw: 'Abheben',
+    withdrewFrom: 'Abgehoben von',
+    depositedTo: 'Eingezahlt auf',
+    cannotDelete: 'Kategorie mit existierenden Transaktionen kann nicht gelöscht werden.',
+    deleteConfirmTitle: 'Löschen?',
+    deleteConfirmMsg: 'Sind Sie sicher? Dies kann nicht rückgängig gemacht werden.',
+    cancel: 'Abbrechen',
+    delete: 'Löschen',
+    successTx: 'Transaktion erfolgreich gespeichert',
+    successCat: 'Kategorie erfolgreich hinzugefügt',
+    deletedItem: 'Element erfolgreich gelöscht',
+    dataManagement: 'Datensicherung & Sync',
+    exportData: 'Daten exportieren (Kopieren)',
+    importData: 'Daten importieren (Wiederherstellen)',
+    pasteData: 'Fügen Sie hier Ihren Datencode ein...',
+    restore: 'Wiederherstellen',
+    dataCopied: 'Daten kopiert! Senden Sie sie an Ihr anderes Gerät.',
+    dataRestored: 'Daten erfolgreich wiederhergestellt!',
+    invalidData: 'Ungültiges Datenformat.',
+    exportDesc: 'Kopieren Sie diesen Code, um Daten zu übertragen.',
+    importDesc: 'Code hier einfügen, um Daten zu überschreiben.',
+    date: 'Datum',
+    clearAllData: 'Alle Daten löschen',
+    clearConfirm: 'Sind Sie sicher? Dies löscht ALLES!',
+  },
+  it: {
+    dashboard: 'Dashboard',
+    history: 'Cronologia',
+    analysis: 'Analisi',
+    categories: 'Categorie',
+    addNew: 'Aggiungi',
+    monthlyBalance: 'Saldo Mensile',
+    monthlyIncome: 'Entrate Mensili',
+    monthlyExpenses: 'Uscite Mensili',
+    budgetStatus: 'Stato Budget',
+    recentActivity: 'Attività Recente',
+    allHistory: 'Tutta la Cronologia',
+    addTransaction: 'Aggiungi Transazione',
+    saveTransaction: 'Salva Transazione',
+    amount: 'Importo',
+    category: 'Categoria',
+    description: 'Descrizione (Opzionale)',
+    expense: 'Spesa',
+    income: 'Entrata',
+    savings: 'Risparmi',
+    spent: 'Speso',
+    saved: 'Salvato',
+    limit: 'Limite',
+    goal: 'Obiettivo',
+    left: 'Rimanente',
+    overBy: 'Oltre di',
+    manageCategories: 'Gestisci Categorie',
+    createNewCategory: 'Crea Nuova Categoria',
+    editCategory: 'Modifica Categoria',
+    update: 'Aggiorna',
+    name: 'Nome',
+    type: 'Tipo',
+    monthlyLimit: 'Limite Mensile',
+    monthlyGoal: 'Obiettivo Mensile',
+    add: 'Aggiungi',
+    noRecords: 'Nessun record trovato.',
+    noCategories: 'Nessuna categoria impostata.',
+    noTransactionsMonth: 'Nessuna transazione per questo mese.',
+    yearlyOverview: 'Panoramica Annuale',
+    breakdown: 'Dettaglio per',
+    unknown: 'Sconosciuto',
+    settings: 'Impostazioni',
+    home: 'Home',
+    totalSavings: 'Risparmi Totali',
+    lifetimeStats: 'Statistiche Totali',
+    totalIncome: 'Entrate Totali',
+    totalExpenses: 'Uscite Totali',
+    initialSavings: 'Risparmio Iniziale',
+    setInitial: 'Imposta Saldo Iniziale',
+    deposit: 'Deposita',
+    withdraw: 'Preleva',
+    withdrewFrom: 'Prelevato da',
+    depositedTo: 'Depositato su',
+    cannotDelete: 'Impossibile eliminare categoria con transazioni esistenti.',
+    deleteConfirmTitle: 'Eliminare?',
+    deleteConfirmMsg: 'Sei sicuro di voler eliminare? Non può essere annullato.',
+    cancel: 'Annulla',
+    delete: 'Elimina',
+    successTx: 'Transazione salvata con successo',
+    successCat: 'Categoria aggiunta con successo',
+    deletedItem: 'Elemento eliminato con successo',
+    dataManagement: 'Backup e Sincronizzazione',
+    exportData: 'Esporta Dati (Copia)',
+    importData: 'Importa Dati (Ripristina)',
+    pasteData: 'Incolla qui il codice dati...',
+    restore: 'Ripristina',
+    dataCopied: 'Dati copiati! Inviali all\'altro dispositivo.',
+    dataRestored: 'Dati ripristinati con successo!',
+    invalidData: 'Formato dati non valido.',
+    exportDesc: 'Copia questo codice per spostare i dati.',
+    importDesc: 'Incolla il codice per sovrascrivere i dati qui.',
+    date: 'Data',
+    clearAllData: 'Cancella tutti i dati',
+    clearConfirm: 'Sei sicuro? Questo cancellerà TUTTO!',
+  }
 };
 
 const LANGUAGES = [
   { code: 'en', label: 'English', flag: '🇬🇧' },
+  { code: 'bg', label: 'Български', flag: '🇧🇬' },
+  { code: 'de', label: 'Deutsch', flag: '🇩🇪' },
+  { code: 'it', label: 'Italiano', flag: '🇮🇹' }
 ];
 
 const formatCurrency = (amount, locale = 'en-IE') => {
@@ -133,9 +367,11 @@ const formatCurrency = (amount, locale = 'en-IE') => {
   }).format(amount);
 };
 
-// Map lang code to locale for number formatting
 const LOCALE_MAP = {
   en: 'en-IE',
+  bg: 'bg-BG',
+  de: 'de-DE',
+  it: 'it-IT'
 };
 
 const getMonthName = (date, lang) => {
@@ -170,15 +406,15 @@ const Button = ({ onClick, children, variant = 'primary', className = "", type="
 // --- Main Application ---
 
 export default function App() {
-  // --- State ---
   const [activeTab, setActiveTab] = useState('dashboard');
   const [currentDate, setCurrentDate] = useState(new Date());
   const [lang, setLang] = useState('en');
   const [showLangMenu, setShowLangMenu] = useState(false);
   
   // UI State
-  const [notification, setNotification] = useState(null); // { type: 'success'|'error', message }
+  const [notification, setNotification] = useState(null); 
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, type: null, id: null });
+  const [editingCategory, setEditingCategory] = useState(null);
   
   const [isEditingInitial, setIsEditingInitial] = useState(false);
   const [tempInitial, setTempInitial] = useState('');
@@ -190,11 +426,19 @@ export default function App() {
 
   const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem('budget_transactions');
-    return saved ? JSON.parse(saved) : [];
+    try {
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
   });
   const [categories, setCategories] = useState(() => {
     const saved = localStorage.getItem('budget_categories');
-    return saved ? JSON.parse(saved) : DEFAULT_CATEGORIES;
+    try {
+      return saved ? JSON.parse(saved) : DEFAULT_CATEGORIES;
+    } catch (e) {
+      return DEFAULT_CATEGORIES;
+    }
   });
 
   // --- Effects ---
@@ -236,8 +480,21 @@ export default function App() {
     } else if (confirmModal.type === 'category') {
       setCategories(categories.filter(c => c.id !== confirmModal.id));
       showNotification('success', t('deletedItem'));
+    } else if (confirmModal.type === 'clearAll') {
+      setTransactions([]);
+      setCategories(DEFAULT_CATEGORIES);
+      setInitialSavings(0);
+      showNotification('success', 'All data cleared');
     }
     setConfirmModal({ isOpen: false, type: null, id: null });
+  };
+
+  const updateCategory = (id, newName, newLimit, newType) => {
+    setCategories(categories.map(c => 
+      c.id === id ? { ...c, name: newName, limit: parseFloat(newLimit), type: newType } : c
+    ));
+    setEditingCategory(null);
+    showNotification('success', 'Category updated');
   };
 
   // --- Actions ---
@@ -257,9 +514,8 @@ export default function App() {
   };
 
   const addTransaction = (transaction) => {
-    const newTx = { ...transaction, id: Date.now().toString(), date: new Date().toISOString() };
+    const newTx = { ...transaction, id: Date.now().toString() };
     setTransactions([newTx, ...transactions]);
-    setCurrentDate(new Date());
     setActiveTab('dashboard');
     showNotification('success', t('successTx'));
   };
@@ -337,20 +593,17 @@ export default function App() {
       else if (t.type === 'savings') savings += Number(t.amount);
     });
 
-    const balance = income - expenses - savings;
+    const balance = income - expenses;
     return { income, expenses, savings, balance };
   }, [monthlyTransactions]);
 
-  // FIX: Categories now differentiate between Savings (Global) and Expenses (Monthly)
   const categoryStats = useMemo(() => {
     const stats = {};
     categories.forEach(c => {
       stats[c.id] = { ...c, spent: 0 };
     });
 
-    // Loop through ALL transactions for Savings, but only MONTHLY for Expenses
     transactions.forEach(t => {
-      // If it's an expense, only count if it matches current month
       if (t.type === 'expense') {
         const tDate = new Date(t.date);
         const isCurrentMonth = tDate.getMonth() === currentDate.getMonth() && 
@@ -359,7 +612,6 @@ export default function App() {
           stats[t.categoryId].spent += Number(t.amount);
         }
       } 
-      // If it's savings, count EVERYTHING (Global)
       else if (t.type === 'savings' && stats[t.categoryId]) {
         stats[t.categoryId].spent += Number(t.amount);
       }
@@ -410,8 +662,8 @@ export default function App() {
               <AlertTriangle size={32} />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">{t('deleteConfirmTitle')}</h3>
-              <p className="text-slate-500">{t('deleteConfirmMsg')}</p>
+              <h3 className="text-xl font-bold text-slate-800 mb-2">{confirmModal.type === 'clearAll' ? 'Reset App?' : t('deleteConfirmTitle')}</h3>
+              <p className="text-slate-500">{confirmModal.type === 'clearAll' ? t('clearConfirm') : t('deleteConfirmMsg')}</p>
             </div>
             <div className="grid grid-cols-2 gap-3 w-full mt-2">
               <Button variant="secondary" onClick={() => setConfirmModal({isOpen: false, type: null, id: null})}>
@@ -427,7 +679,40 @@ export default function App() {
     );
   };
 
-  // --- Views ---
+  const EditCategoryModal = () => {
+    if (!editingCategory) return null;
+    
+    // Local state for the form inside modal
+    const [name, setName] = useState(editingCategory.name);
+    const [limit, setLimit] = useState(editingCategory.limit);
+    
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setEditingCategory(null)}></div>
+        <div className="relative bg-white rounded-2xl shadow-2xl p-6 max-w-md w-full animate-fade-in">
+          <h3 className="text-xl font-bold text-slate-800 mb-4">{t('editCategory')}</h3>
+          <div className="space-y-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('name')}</label>
+              <input value={name} onChange={(e) => setName(e.target.value)} className="w-full p-2 border rounded-lg" />
+            </div>
+            {editingCategory.type !== 'income' && (
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">
+                  {editingCategory.type === 'savings' ? t('monthlyGoal') : t('monthlyLimit')}
+                </label>
+                <input type="number" value={limit} onChange={(e) => setLimit(e.target.value)} className="w-full p-2 border rounded-lg" />
+              </div>
+            )}
+            <div className="grid grid-cols-2 gap-3">
+              <Button variant="secondary" onClick={() => setEditingCategory(null)}>{t('cancel')}</Button>
+              <Button onClick={() => updateCategory(editingCategory.id, name, limit, editingCategory.type)}>{t('update')}</Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   const DashboardView = () => (
     <div className="space-y-6 pb-24 md:pb-0 animate-fade-in">
@@ -457,7 +742,6 @@ export default function App() {
 
           {isEditingInitial ? (
             <div className="flex items-center gap-2 mb-6 mt-2">
-              {/* FIX: Removed max-w limitation so more digits fit */}
               <input 
                 type="number"
                 value={tempInitial}
@@ -648,7 +932,6 @@ export default function App() {
 
     return (
       <div className="space-y-8 pb-24 md:pb-0 animate-fade-in">
-        
         {/* Yearly Chart */}
         <div>
           <div className="flex items-center justify-between mb-4">
@@ -733,6 +1016,7 @@ export default function App() {
     const [type, setType] = useState('expense');
     const [categoryId, setCategoryId] = useState('');
     const [isWithdrawal, setIsWithdrawal] = useState(false);
+    const [date, setDate] = useState(new Date().toISOString().split('T')[0]);
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -747,7 +1031,8 @@ export default function App() {
         amount: finalAmount,
         description,
         type,
-        categoryId
+        categoryId,
+        date: new Date(date).toISOString()
       });
     };
 
@@ -801,6 +1086,21 @@ export default function App() {
                  </button>
               </div>
             )}
+
+            {/* Date Selection */}
+            <div>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('date')}</label>
+              <div className="relative">
+                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+                <input 
+                  type="date"
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  className="w-full pl-12 pr-4 py-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-blue-500 outline-none text-slate-800"
+                  required
+                />
+              </div>
+            </div>
 
             <div>
               <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('amount')}</label>
@@ -877,7 +1177,11 @@ export default function App() {
              <p>{t('noRecords')}</p>
            </div>
         ) : (
-          transactions.sort((a,b) => new Date(b.date) - new Date(a.date)).map(t => {
+          transactions.sort((a,b) => {
+             const dateA = new Date(a.date || 0);
+             const dateB = new Date(b.date || 0);
+             return dateB - dateA;
+          }).map(t => {
             const cat = categories.find(c => c.id === t.categoryId);
             
             // Determine sign/color based on type
@@ -904,7 +1208,7 @@ export default function App() {
               <Card key={t.id} className="flex justify-between items-center group hover:border-blue-200 transition-colors">
                 <div className="flex items-center gap-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-white text-lg font-bold shadow-sm ${cat?.color || 'bg-gray-400'}`}>
-                    {cat?.name.charAt(0)}
+                    {cat?.name?.charAt(0) || '?'}
                   </div>
                   <div>
                     <h4 className="font-bold text-slate-800">{label}</h4>
@@ -932,7 +1236,6 @@ export default function App() {
   );
 
   const CategoriesView = () => {
-    // ... (This section remains unchanged from previous version, just re-rendering for context)
     const [newCatName, setNewCatName] = useState('');
     const [newCatLimit, setNewCatLimit] = useState('');
     const [newCatType, setNewCatType] = useState('expense');
@@ -1031,6 +1334,15 @@ export default function App() {
               </form>
             </Card>
           </div>
+
+          <div className="mt-8 text-center">
+             <button 
+                onClick={() => setConfirmModal({isOpen: true, type: 'clearAll'})}
+                className="text-red-500 text-sm font-bold flex items-center justify-center gap-2 hover:bg-red-50 px-4 py-2 rounded-lg mx-auto transition-colors"
+             >
+                <RefreshCw size={16} /> {t('clearAllData')}
+             </button>
+          </div>
         </div>
 
         <div className="space-y-2">
@@ -1045,12 +1357,21 @@ export default function App() {
                   </p>
                 </div>
               </div>
-              <button 
-                onClick={() => initiateDelete('category', cat.id)}
-                className="text-slate-300 hover:text-red-500 transition-colors p-2"
-              >
-                <X size={18} />
-              </button>
+              <div className="flex gap-2">
+                {/* FIX: Edit Category Button */}
+                <button 
+                  onClick={() => setEditingCategory(cat)}
+                  className="text-slate-300 hover:text-blue-500 transition-colors p-2"
+                >
+                  <Edit2 size={18} />
+                </button>
+                <button 
+                  onClick={() => initiateDelete('category', cat.id)}
+                  className="text-slate-300 hover:text-red-500 transition-colors p-2"
+                >
+                  <Trash2 size={18} />
+                </button>
+              </div>
             </div>
           ))}
         </div>
@@ -1073,6 +1394,7 @@ export default function App() {
       
       <NotificationToast />
       <ConfirmationModal />
+      <EditCategoryModal /> {/* FIX: Render Edit Modal */}
 
       {/* Desktop Navigation (Sidebar) / Header */}
       <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-4">
