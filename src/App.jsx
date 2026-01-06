@@ -26,7 +26,8 @@ import {
   UploadCloud,
   Copy,
   Calendar,
-  RefreshCw
+  RefreshCw,
+  Power // Added Power Icon for Reset
 } from 'lucide-react';
 
 // --- Default Data & Utilities ---
@@ -123,8 +124,10 @@ const TRANSLATIONS = {
     exportDesc: 'Copy this code to move your data to another device.',
     importDesc: 'Paste code from another device to overwrite data here.',
     date: 'Date',
-    clearAllData: 'Clear All Data',
-    clearConfirm: 'Are you sure? This deletes EVERYTHING!',
+    resetApp: 'Reset App (Clear All Data)',
+    resetConfirmTitle: 'Factory Reset?',
+    resetConfirmMsg: 'Are you sure? This will delete ALL transactions and settings permanently.',
+    resetSuccess: 'App reset successfully'
   },
   bg: {
     dashboard: 'Табло',
@@ -198,8 +201,10 @@ const TRANSLATIONS = {
     exportDesc: 'Копирайте този код, за да прехвърлите данните.',
     importDesc: 'Поставете код от друго устройство, за да презапишете данните.',
     date: 'Дата',
-    clearAllData: 'Изчисти Всички Данни',
-    clearConfirm: 'Сигурни ли сте? Това изтрива ВСИЧКО!',
+    resetApp: 'Нулиране на приложението',
+    resetConfirmTitle: 'Фабрично нулиране?',
+    resetConfirmMsg: 'Сигурни ли сте? Това ще изтрие ВСИЧКИ транзакции и настройки завинаги.',
+    resetSuccess: 'Приложението е нулирано успешно'
   },
   de: {
     dashboard: 'Dashboard',
@@ -273,8 +278,10 @@ const TRANSLATIONS = {
     exportDesc: 'Kopieren Sie diesen Code, um Daten zu übertragen.',
     importDesc: 'Code hier einfügen, um Daten zu überschreiben.',
     date: 'Datum',
-    clearAllData: 'Alle Daten löschen',
-    clearConfirm: 'Sind Sie sicher? Dies löscht ALLES!',
+    resetApp: 'App zurücksetzen (Alles löschen)',
+    resetConfirmTitle: 'Zurücksetzen?',
+    resetConfirmMsg: 'Sind Sie sicher? Dies löscht ALLE Daten dauerhaft.',
+    resetSuccess: 'App erfolgreich zurückgesetzt'
   },
   it: {
     dashboard: 'Dashboard',
@@ -348,8 +355,10 @@ const TRANSLATIONS = {
     exportDesc: 'Copia questo codice per spostare i dati.',
     importDesc: 'Incolla il codice per sovrascrivere i dati qui.',
     date: 'Data',
-    clearAllData: 'Cancella tutti i dati',
-    clearConfirm: 'Sei sicuro? Questo cancellerà TUTTO!',
+    resetApp: 'Ripristina App (Cancella Tutto)',
+    resetConfirmTitle: 'Ripristino di fabbrica?',
+    resetConfirmMsg: 'Sei sicuro? Questo cancellerà TUTTE le transazioni e le impostazioni permanentemente.',
+    resetSuccess: 'App ripristinata con successo'
   }
 };
 
@@ -367,6 +376,7 @@ const formatCurrency = (amount, locale = 'en-IE') => {
   }).format(amount);
 };
 
+// Map lang code to locale for number formatting
 const LOCALE_MAP = {
   en: 'en-IE',
   bg: 'bg-BG',
@@ -406,15 +416,16 @@ const Button = ({ onClick, children, variant = 'primary', className = "", type="
 // --- Main Application ---
 
 export default function App() {
+  // --- State ---
   const [activeTab, setActiveTab] = useState('dashboard');
   const [currentDate, setCurrentDate] = useState(new Date());
   const [lang, setLang] = useState('en');
   const [showLangMenu, setShowLangMenu] = useState(false);
   
   // UI State
-  const [notification, setNotification] = useState(null); 
+  const [notification, setNotification] = useState(null); // { type: 'success'|'error', message }
   const [confirmModal, setConfirmModal] = useState({ isOpen: false, type: null, id: null });
-  const [editingCategory, setEditingCategory] = useState(null);
+  const [editingCategory, setEditingCategory] = useState(null); // New state for editing
   
   const [isEditingInitial, setIsEditingInitial] = useState(false);
   const [tempInitial, setTempInitial] = useState('');
@@ -484,7 +495,7 @@ export default function App() {
       setTransactions([]);
       setCategories(DEFAULT_CATEGORIES);
       setInitialSavings(0);
-      showNotification('success', 'All data cleared');
+      showNotification('success', t('resetSuccess'));
     }
     setConfirmModal({ isOpen: false, type: null, id: null });
   };
@@ -516,6 +527,8 @@ export default function App() {
   const addTransaction = (transaction) => {
     const newTx = { ...transaction, id: Date.now().toString() };
     setTransactions([newTx, ...transactions]);
+    // Optionally switch to the month of the added transaction if desired
+    // For now we stay on current dashboard to avoid confusion
     setActiveTab('dashboard');
     showNotification('success', t('successTx'));
   };
@@ -653,6 +666,16 @@ export default function App() {
 
   const ConfirmationModal = () => {
     if (!confirmModal.isOpen) return null;
+    
+    // Determine texts based on type
+    let title = t('deleteConfirmTitle');
+    let msg = t('deleteConfirmMsg');
+    
+    if (confirmModal.type === 'clearAll') {
+      title = t('resetConfirmTitle');
+      msg = t('resetConfirmMsg');
+    }
+
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setConfirmModal({isOpen: false, type: null, id: null})}></div>
@@ -662,8 +685,8 @@ export default function App() {
               <AlertTriangle size={32} />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-slate-800 mb-2">{confirmModal.type === 'clearAll' ? 'Reset App?' : t('deleteConfirmTitle')}</h3>
-              <p className="text-slate-500">{confirmModal.type === 'clearAll' ? t('clearConfirm') : t('deleteConfirmMsg')}</p>
+              <h3 className="text-xl font-bold text-slate-800 mb-2">{title}</h3>
+              <p className="text-slate-500">{msg}</p>
             </div>
             <div className="grid grid-cols-2 gap-3 w-full mt-2">
               <Button variant="secondary" onClick={() => setConfirmModal({isOpen: false, type: null, id: null})}>
